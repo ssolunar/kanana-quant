@@ -9,12 +9,11 @@
 
 ## 변환 방법 요약
 
-llama.cpp의 `convert_hf_to_gguf.py`는 이 모델의 커스텀 아키텍처(`Kanana2TinyForCausalLM`)를
-지원하지 않는다. 모델 구조가 Qwen3와 호환되는 점을 이용해, config.json의 아키텍처를
-`Qwen3ForCausalLM`으로 매핑한 뒤 변환한다 (`scripts/convert_qwen3map.sh`).
+- llama.cpp의 `convert_hf_to_gguf.py`는 이 모델의 커스텀 아키텍처(`Kanana2TinyForCausalLM`)를 지원하지 않음.
+- 모델 구조가 Qwen3와 호환되는 점을 이용, config.json의 아키텍처를 `Qwen3ForCausalLM`으로 매핑한 뒤 변환 (`scripts/convert_qwen3map.sh`).
 
-이 과정에서 원본의 SWA(sliding window attention, window 1024) 레이어 배치와 YaRN rope
-설정이 제거되어 전 레이어 full attention + 기본 rope로 동작한다:
+이 과정에서 원본의 SWA(sliding window attention, window 1024) 레이어 배치와 
+YaRN rope 설정이 제거되어 전 레이어 full attention + 기본 rope로 동작한다:
 
 - **~1024 토큰 이내 대화: 원본과 수학적으로 동일**
 - **컨텍스트 4096 이하 사용 권장** (`-c 4096`)
@@ -48,7 +47,7 @@ bash scripts/convert_qwen3map.sh  # Qwen3 매핑 → f16 GGUF → Q4_K_M 양자�
 !bash scripts/convert_qwen3map.sh
 ```
 
-완료되면 `Kanana-2-1.3b-instruct-Q4_K_M.gguf`(~0.85GB)가 생성된다.
+완료되면 `Kanana-2-1.3b-instruct-Q4_K_M.gguf`(~0.85GB)가 생성됨.
 llama.cpp / Ollama / LM Studio / PocketPal 등 GGUF 호환 런타임에서 사용:
 
 ```bash
@@ -71,7 +70,7 @@ bash scripts/upload_hf.sh <your-hf-username>   # 사전: hf auth login (write �
 
 ## 라이선스
 
-원본 모델과 양자화 모델(Derivative Work)은 **Kanana Open License Agreement**를 따른다
+원본 모델과 양자화 모델(Derivative Work)은 **Kanana Open License Agreement**를 따름
 ([release/LICENSE](release/LICENSE)). 재배포 시 의무 사항:
 
 - 모델명에 `Kanana-` 접두어 유지
