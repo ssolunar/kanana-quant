@@ -1,0 +1,7 @@
+*.gguf
+*.zip
+kanana-2-1.3b-instruct/
+kanana-2-1.3b-qwen3map/
+llama.cpp/
+.venv/
+hf-upload/
